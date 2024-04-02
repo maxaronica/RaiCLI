@@ -20,27 +20,20 @@ namespace RaiCLI.Core
             var tot = _dbContext.AspNetUsers.Count();
             if (!arg.Any())  arg = new string[] { "Help"};
 
-            var classAddress = $"RaiCLI.Core.CommandClasses.{arg[0].Substring(0,1).ToUpper()}{arg[0].Substring(1).ToLower()}";
-            Type? type = GetType(classAddress);
-
-            if (type == null)  return null;
-
-            IRaiCLI? instance = (IRaiCLI?) Activator.CreateInstance(type);
-            return instance;
+            Type[] types = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "RaiCLI.Core.CommandClasses");
+            Type? typeCalled = types.FirstOrDefault(x =>string.Equals( x.Name, arg[0], StringComparison.InvariantCultureIgnoreCase));
+            if (typeCalled == null) 
+                return null;
+            else
+                return (IRaiCLI?)Activator.CreateInstance(typeCalled);
         }
-        public  Type? GetType(string strFullyQualifiedName)
+        
+        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
         {
-            Type? type = Type.GetType(strFullyQualifiedName);
-            if (type != null)
-                return type;
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                type = asm.GetType(strFullyQualifiedName);
-                if (type != null)
-                    return type;
-            }
-            return null;
+            return
+              assembly.GetTypes()
+                      .Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
+                      .ToArray();
         }
-       
     }
 }
