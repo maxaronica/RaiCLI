@@ -1,4 +1,5 @@
-﻿using RaiCLI.DbContextEF.Models;
+﻿using AutoMapper;
+using RaiCLI.DbContextEF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,8 @@ namespace RaiCLI.Core
     {
         IRaiCLI? GetClass(string[] arg);
     }
-    public class Selector (aspnetWebApplicationIdentityContext _dbContext) : ISelector
+    public class Selector (aspnetWebApplicationIdentityContext _dbContext, Mapper _mapper) : ISelector
     {
-      
         public  IRaiCLI? GetClass(string[] arg)
         {
             var tot = _dbContext.AspNetUsers.Count();

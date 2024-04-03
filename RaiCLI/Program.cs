@@ -4,6 +4,8 @@ using Microsoft.Extensions.Hosting;
 using RaiCLI.DbContextEF.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using RaiCLI.AutoMapper;
+using AutoMapper;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
@@ -14,7 +16,8 @@ builder.Services.AddDbContext<aspnetWebApplicationIdentityContext>(options =>
 //starting class
 builder.Services.AddScoped<ISelector,Selector>();
 
-
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 

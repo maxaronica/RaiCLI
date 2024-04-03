@@ -4,7 +4,7 @@
     {
         public void Invoke(string[] args)
         {
-            Console.WriteLine("Command invoked");
+            Console.WriteLine("Command invoked............................");
         }
 
         public string Usage()

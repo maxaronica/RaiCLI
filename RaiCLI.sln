@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaiCLI", "RaiCLI\RaiCLI.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaiCLI.Core", "RaiCLI.Core\RaiCLI.Core.csproj", "{E5B28C40-F0C0-4A09-9457-59C31F350BC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaiCLI.DbContext", "RaiCLI.DbContext\RaiCLI.DbContext.csproj", "{1A4F3C96-123F-4C5D-AB17-A4857DA5EC84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaiCLI.DbContext", "RaiCLI.DbContext\RaiCLI.DbContext.csproj", "{1A4F3C96-123F-4C5D-AB17-A4857DA5EC84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaiCLI.AutoMapper", "RaiCLI.AutoMapper\RaiCLI.AutoMapper.csproj", "{B20368B5-9CAA-42F0-BB55-783C185A9C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1A4F3C96-123F-4C5D-AB17-A4857DA5EC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A4F3C96-123F-4C5D-AB17-A4857DA5EC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A4F3C96-123F-4C5D-AB17-A4857DA5EC84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
