@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaiCLI.DbContext", "RaiCLI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaiCLI.AutoMapper", "RaiCLI.AutoMapper\RaiCLI.AutoMapper.csproj", "{B20368B5-9CAA-42F0-BB55-783C185A9C29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGenerator", "ExcelGenerator\ExcelGenerator.csproj", "{DA4935B0-0EB2-4D0B-BF32-5B01F65CDC77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModels", "CommonModels\CommonModels.csproj", "{7560ACD1-D479-4A2A-895F-5997C8C71370}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B20368B5-9CAA-42F0-BB55-783C185A9C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4935B0-0EB2-4D0B-BF32-5B01F65CDC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4935B0-0EB2-4D0B-BF32-5B01F65CDC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4935B0-0EB2-4D0B-BF32-5B01F65CDC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4935B0-0EB2-4D0B-BF32-5B01F65CDC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7560ACD1-D479-4A2A-895F-5997C8C71370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7560ACD1-D479-4A2A-895F-5997C8C71370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7560ACD1-D479-4A2A-895F-5997C8C71370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7560ACD1-D479-4A2A-895F-5997C8C71370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

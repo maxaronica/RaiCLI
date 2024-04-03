@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RaiCLI.AutoMapper;
 using AutoMapper;
+using ExcelGenerator;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddScoped<ISelector,Selector>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
+//Report Excel
+builder.Services.AddScoped<IExcelGen, ExcelGen>();
 
 var app = builder.Build();
 

@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExcelGenerator\ExcelGenerator.csproj" />
-    <ProjectReference Include="..\RaiCLI.AutoMapper\RaiCLI.AutoMapper.csproj" />
-    <ProjectReference Include="..\RaiCLI.DbContext\RaiCLI.DbContext.csproj" />
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
   </ItemGroup>
 
 </Project>

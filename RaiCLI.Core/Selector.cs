@@ -13,7 +13,7 @@ namespace RaiCLI.Core
     {
         IRaiCLI? GetClass(string[] arg);
     }
-    public class Selector (aspnetWebApplicationIdentityContext _dbContext, Mapper _mapper) : ISelector
+    public class Selector (aspnetWebApplicationIdentityContext _dbContext, IMapper _mapper, IServiceProvider _serviceProvider) : ISelector
     {
         public  IRaiCLI? GetClass(string[] arg)
         {
@@ -25,7 +25,7 @@ namespace RaiCLI.Core
             if (typeCalled == null) 
                 return null;
             else
-                return (IRaiCLI?)Activator.CreateInstance(typeCalled);
+                return (IRaiCLI?)Activator.CreateInstance(typeCalled, _serviceProvider);
         }
         
         private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)

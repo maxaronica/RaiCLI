@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +12,11 @@ namespace RaiCLI.Core.CommandClasses
 {
     public class Help : IRaiCLI
     {
+        IServiceProvider _sp;
+        public Help(IServiceProvider sp)
+        {
+            _sp = sp;
+        }
         public void Invoke(string[] args)
         {
             var a = Assembly.GetExecutingAssembly();
@@ -21,7 +28,7 @@ namespace RaiCLI.Core.CommandClasses
                     continue;
                 }
                
-                IRaiCLI? instance = (IRaiCLI?)Activator.CreateInstance(type);
+                IRaiCLI? instance = (IRaiCLI?)Activator.CreateInstance(type,_sp);
                 if (instance != null) Console.WriteLine(instance.Usage());
             }
         }
