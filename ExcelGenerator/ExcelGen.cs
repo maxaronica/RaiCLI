@@ -1,5 +1,7 @@
 ﻿using ClosedXML.Excel;
 using CommonModels.Attributes;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Reflection;
 
 namespace ExcelGenerator
 {
@@ -9,6 +11,55 @@ namespace ExcelGenerator
     }
     public class ExcelGen : IExcelGen
     {
+        private string? IsColumnNameAttribute(PropertyInfo prop)
+        {
+            var attributes = prop.GetCustomAttributes(true);
+            if (attributes.Any())
+            {
+                foreach (var att in attributes)
+                {
+                    ColumnNameAttribute? nameAttribute = att as ColumnNameAttribute;
+                    if (nameAttribute != null)
+                    {
+                        return nameAttribute.Name;
+                    }
+                }
+            }
+            return null;
+        }
+        private string? IsDateFormatAttribute(PropertyInfo prop)
+        {
+            var attributes = prop.GetCustomAttributes(true);
+            if (attributes.Any())
+            {
+                foreach (var att in attributes)
+                {
+                    DateFormatAttribute? dateFormat = att as DateFormatAttribute;
+                    if (dateFormat != null)
+                    {
+                        return dateFormat.Format;
+                    }
+                }
+            }
+            return null;
+        }
+        private string[]? IsTrueFalseAttribute(PropertyInfo prop)
+        {
+            var attributes = prop.GetCustomAttributes(true);
+            if (attributes.Any())
+            {
+                foreach (var att in attributes)
+                {
+                    TrueFalseAttribute? truefalse = att as TrueFalseAttribute;
+                    if (truefalse != null)
+                    {
+                        return truefalse.TF.Split('_');
+
+                    }
+                }
+            }
+            return null;
+        }
         public byte[] Create<T>(List<T> items, string SheetTitle)
         {
             var wbook = new XLWorkbook();
@@ -18,15 +69,15 @@ namespace ExcelGenerator
             var props = typeof(T).GetProperties();
             int col = 1;
             int row = 1;
-            foreach ( var prop in props )
+            foreach (var prop in props)
             {
-                ws.Cell(row,col).SetValue(prop.Name);
-                ws.Cell(row,col).Style.Font.Bold = true;
+                ws.Cell(row, col).SetValue(IsColumnNameAttribute(prop) ?? prop.Name);
+                ws.Cell(row, col).Style.Font.Bold = true;
                 ws.Cell(row, col).Style.Fill.SetBackgroundColor(XLColor.LightGray);
                 col++;
             }
 
-            
+
             foreach (var item in items)
             {
                 row++;
@@ -41,16 +92,21 @@ namespace ExcelGenerator
                     }
                     if (prop.CustomAttributes.Any())
                     {
-                        var attributes = prop.GetCustomAttributes(true);
-                        foreach (var att in attributes)
+                        string? dateFormat = IsDateFormatAttribute(prop);
+                        if (dateFormat != null)
                         {
-                            DateFormatAttribute? dateFormat = att as DateFormatAttribute;
-                            if (dateFormat != null)
-                            {
-                                ws.Cell(row, col).Value = ((DateTime)value);//.ToString(dateFormat.Format);
-                            }
+                            ws.Cell(row, col).Value = ((DateTime)value).ToString(dateFormat ?? "dd/MM/yyyy");
+                            continue;
                         }
 
+                        string[]? trueFalse = IsTrueFalseAttribute(prop);
+                        if (trueFalse != null)
+                        {
+                            ws.Cell(row, col).Value = ((bool)value) == true ? trueFalse[0] : trueFalse[1];
+                            continue;
+                        }
+
+                        ws.Cell(row, col).Value = (value).ToString();
                     }
                     else
                     {

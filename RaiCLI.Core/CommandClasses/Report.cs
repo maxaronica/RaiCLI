@@ -24,19 +24,22 @@ namespace RaiCLI.Core.CommandClasses
             {
                 Cognome = "Rossi",
                 Nome = "Massimo",
-                DataAssunzione = new DateTime(2020, 1, 1)
+                DataAssunzione = new DateTime(2020, 1, 1),
+                IsGiornalista=true
             });
             ListaDip.Add(new DipendentiDto()
             {
                 Cognome = "Verdi",
                 Nome = "Roberto",
-                DataAssunzione = new DateTime(2010, 1, 1)
+                DataAssunzione = new DateTime(2010, 1, 1),
+                IsGiornalista = true
             });
             ListaDip.Add(new DipendentiDto()
             {
                 Cognome = "Bianchi",
                 Nome = "Gino",
-                DataAssunzione = new DateTime(2000, 1, 1)
+                DataAssunzione = new DateTime(2000, 1, 1),
+                IsGiornalista = false
             });
             byte[] buff = _excelGen.Create(ListaDip, "Dipendenti");
             System.IO.File.WriteAllBytes("c:\\users\\massi\\desktop\\t.xlsx", buff);

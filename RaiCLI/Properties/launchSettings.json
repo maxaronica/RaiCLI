@@ -1,7 +1,8 @@
 {
   "profiles": {
     "RaiCLI": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "report"
     }
   }
 }
