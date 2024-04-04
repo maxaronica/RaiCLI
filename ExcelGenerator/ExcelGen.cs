@@ -67,6 +67,15 @@ namespace ExcelGenerator
             var ws = wbook.Worksheets.Add(SheetTitle);
 
             var props = typeof(T).GetProperties();
+            bool AreOrdered = props.Any(x => x.CustomAttributes.Any(z => z.AttributeType == typeof(ColumnOrderAttribute)));
+            if (AreOrdered)
+            {
+              props  = props
+                    .Select(x => new {prop=x, ord=x.GetCustomAttribute<ColumnOrderAttribute>()?.Order })
+                    .OrderBy(z=>z.ord ==null).ThenBy(z=>z.ord).Select (a=>a.prop).ToArray();
+            }
+
+           
             int col = 1;
             int row = 1;
             foreach (var prop in props)
