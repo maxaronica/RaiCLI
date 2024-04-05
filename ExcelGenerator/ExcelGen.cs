@@ -29,6 +29,11 @@ namespace ExcelGenerator
             _gen.SheetSubTitle = subtitle;
             return this;
         }
+        public ExcelBuilder WithExistingFile(byte[] bytes)
+        {
+            _gen.ExistingFile = bytes;
+            return this;
+        }
         public byte[] Build<T>(List<T> items)
         {
             return _gen.Create<T>(items);
@@ -38,6 +43,7 @@ namespace ExcelGenerator
             public string SheetName { get; set; }
             public string SheetTitle { get; set; }
             public string SheetSubTitle { get; set; }
+            public byte[] ExistingFile {  get; set; }
 
             private string? HasColumnNameAttribute(PropertyInfo prop)
             {
@@ -102,7 +108,12 @@ namespace ExcelGenerator
             }
             public byte[] Create<T>(List<T> items)
             {
-                var wbook = new XLWorkbook();
+                XLWorkbook wbook = new XLWorkbook();
+                if (this.ExistingFile != null)
+                {
+                    MemoryStream Ms = new MemoryStream(this.ExistingFile);
+                    wbook = new XLWorkbook(Ms);
+                }
 
                 var ws = wbook.Worksheets.Add(SheetName);
                 int row = 1;
