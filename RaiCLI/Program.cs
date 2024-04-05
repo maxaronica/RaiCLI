@@ -20,9 +20,6 @@ builder.Services.AddScoped<ISelector,Selector>();
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
-//Report Excel
-builder.Services.AddScoped<IExcelGen, ExcelGen>();
-
 var app = builder.Build();
 
 app.RunAsync();

@@ -11,10 +11,10 @@ namespace RaiCLI.Core.CommandClasses
 {
     public class Report : IRaiCLI
     {
-        IExcelGen _excelGen;
+        //IExcelGen _excelGen;
         public Report(IServiceProvider sp)
         {
-            _excelGen =sp.GetService<IExcelGen>();  
+        //    _excelGen =sp.GetService<IExcelGen>()!;  
 
         }
         public void Invoke(string[] args)
@@ -41,7 +41,13 @@ namespace RaiCLI.Core.CommandClasses
                 DataAssunzione = new DateTime(2000, 1, 1),
                 IsGiornalista = false
             });
-            byte[] buff = _excelGen.Create(ListaDip, "Dipendenti");
+            byte[] buff =
+                 new ExcelBuilder()
+                .WithSheetName("Dipendenti")
+                .WithSheetTitle("DIPENDENTI")
+                .WithSheetSubTitle("Al 5/4/2024")
+                .Build(ListaDip);
+
             System.IO.File.WriteAllBytes("c:\\users\\massi\\desktop\\t.xlsx", buff);
         }
 
