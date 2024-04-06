@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using RaiCLI.AutoMapper;
 using AutoMapper;
 using ExcelGenerator;
+using RaiCLI.PdfGenerator;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
@@ -24,6 +25,8 @@ var app = builder.Build();
 
 app.RunAsync();
 
+PDF p = new PDF ();
+p.Build();
 
 
 var _selector=app.Services.GetRequiredService<ISelector>();

@@ -41,14 +41,22 @@ namespace RaiCLI.Core.CommandClasses
                 DataAssunzione = new DateTime(2000, 1, 1),
                 IsGiornalista = false
             });
-            byte[] buff =
+                byte[] buff =
                  new ExcelBuilder()
                 .WithSheetName("Dipendenti")
                 .WithSheetTitle("DIPENDENTI")
                 .WithSheetSubTitle("Al 5/4/2024")
                 .Build(ListaDip);
 
-            System.IO.File.WriteAllBytes("c:\\users\\massi\\desktop\\t.xlsx", buff);
+            byte[] buff2 =
+                new ExcelBuilder()
+               .WithSheetName("Dipendenti2")
+               .WithSheetTitle("DIPENDENTI2")
+               .WithSheetSubTitle("Al 5/4/2024 2 ")
+               .WithExistingFile(buff)
+               .Build(ListaDip);
+
+            System.IO.File.WriteAllBytes("c:\\users\\massi\\desktop\\t.xlsx", buff2);
         }
 
         public string Usage()

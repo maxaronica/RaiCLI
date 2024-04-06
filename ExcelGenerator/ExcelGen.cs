@@ -40,72 +40,12 @@ namespace ExcelGenerator
         }
         private class ExcelGen
         {
-            public string SheetName { get; set; }
-            public string SheetTitle { get; set; }
-            public string SheetSubTitle { get; set; }
-            public byte[] ExistingFile {  get; set; }
+            public string SheetName { get; set; } = String.Empty;
+            public string? SheetTitle { get; set; }
+            public string? SheetSubTitle { get; set; }
+            public byte[]? ExistingFile {  get; set; }
 
-            private string? HasColumnNameAttribute(PropertyInfo prop)
-            {
-                var attributes = prop.GetCustomAttributes(true);
-                if (attributes.Any())
-                {
-                    foreach (var att in attributes)
-                    {
-                        ColumnNameAttribute? nameAttribute = att as ColumnNameAttribute;
-                        if (nameAttribute != null)
-                        {
-                            return nameAttribute.Name;
-                        }
-                    }
-                }
-                return null;
-            }
-            private string? HasDateFormatAttribute(PropertyInfo prop)
-            {
-                var attributes = prop.GetCustomAttributes(true);
-                if (attributes.Any())
-                {
-                    foreach (var att in attributes)
-                    {
-                        DateFormatAttribute? dateFormat = att as DateFormatAttribute;
-                        if (dateFormat != null)
-                        {
-                            return dateFormat.Format;
-                        }
-                    }
-                }
-                return null;
-            }
-            private string[]? HasTrueFalseAttribute(PropertyInfo prop)
-            {
-                var attributes = prop.GetCustomAttributes(true);
-                if (attributes.Any())
-                {
-                    foreach (var att in attributes)
-                    {
-                        TrueFalseAttribute? truefalse = att as TrueFalseAttribute;
-                        if (truefalse != null)
-                        {
-                            return truefalse.TF.Split('_');
 
-                        }
-                    }
-                }
-                return null;
-            }
-
-            private PropertyInfo[] GetPropertiesOrderedByAttribute(PropertyInfo[] props)
-            {
-                bool AreOrdered = props.Any(x => x.CustomAttributes.Any(z => z.AttributeType == typeof(ColumnOrderAttribute)));
-                if (AreOrdered)
-                {
-                    props = props
-                          .Select(x => new { prop = x, ord = x.GetCustomAttribute<ColumnOrderAttribute>()?.Order })
-                          .OrderBy(z => z.ord == null).ThenBy(z => z.ord).Select(a => a.prop).ToArray();
-                }
-                return props;
-            }
             public byte[] Create<T>(List<T> items)
             {
                 XLWorkbook wbook = new XLWorkbook();
@@ -181,6 +121,67 @@ namespace ExcelGenerator
                 wbook.SaveAs(M);
                 return M.ToArray();
             }
+            private string? HasColumnNameAttribute(PropertyInfo prop)
+            {
+                var attributes = prop.GetCustomAttributes(true);
+                if (attributes.Any())
+                {
+                    foreach (var att in attributes)
+                    {
+                        ColumnNameAttribute? nameAttribute = att as ColumnNameAttribute;
+                        if (nameAttribute != null)
+                        {
+                            return nameAttribute.Name;
+                        }
+                    }
+                }
+                return null;
+            }
+            private string? HasDateFormatAttribute(PropertyInfo prop)
+            {
+                var attributes = prop.GetCustomAttributes(true);
+                if (attributes.Any())
+                {
+                    foreach (var att in attributes)
+                    {
+                        DateFormatAttribute? dateFormat = att as DateFormatAttribute;
+                        if (dateFormat != null)
+                        {
+                            return dateFormat.Format;
+                        }
+                    }
+                }
+                return null;
+            }
+            private string[]? HasTrueFalseAttribute(PropertyInfo prop)
+            {
+                var attributes = prop.GetCustomAttributes(true);
+                if (attributes.Any())
+                {
+                    foreach (var att in attributes)
+                    {
+                        TrueFalseAttribute? truefalse = att as TrueFalseAttribute;
+                        if (truefalse != null)
+                        {
+                            return truefalse.TF.Split('_');
+
+                        }
+                    }
+                }
+                return null;
+            }
+            private PropertyInfo[] GetPropertiesOrderedByAttribute(PropertyInfo[] props)
+            {
+                bool AreOrdered = props.Any(x => x.CustomAttributes.Any(z => z.AttributeType == typeof(ColumnOrderAttribute)));
+                if (AreOrdered)
+                {
+                    props = props
+                          .Select(x => new { prop = x, ord = x.GetCustomAttribute<ColumnOrderAttribute>()?.Order })
+                          .OrderBy(z => z.ord == null).ThenBy(z => z.ord).Select(a => a.prop).ToArray();
+                }
+                return props;
+            }
+           
         }
     }
    

@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ExcelGenerator\ExcelGenerator.csproj" />
     <ProjectReference Include="..\RaiCLI.Core\RaiCLI.Core.csproj" />
+    <ProjectReference Include="..\RaiCLI.PdfGenerator\RaiCLI.PdfGeneratorFromHTML.csproj" />
   </ItemGroup>
 
   <ItemGroup>
